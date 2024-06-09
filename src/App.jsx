@@ -1,35 +1,54 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import reactLogo from "./assets/react.svg";
+import viteLogo from "/vite.svg";
+import "./App.css";
+import { DayOfWeek } from "./DayOfWeek";
+import { Day } from "./Day";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [month, setMonth] = useState(5);
+  const [year, setYear] = useState(2015);
+
+  debugger;
+
+  const firstDay = new Date(year, month, 1);
+  let firstCornerDayOfWeek = -firstDay.getDay() + 2;
+  if (firstCornerDayOfWeek < -5) {
+    firstCornerDayOfWeek += 7;
+  } else if (firstCornerDayOfWeek > 1) {
+    firstCornerDayOfWeek -= 7;
+  }
+  const firstCornerDay = new Date(year, month, firstCornerDayOfWeek);
+  console.log(firstCornerDay);
+
+  const lastDay = new Date(year, month + 1, 0);
+  const lastCornerDay = new Date(year, month + 1, (7 - lastDay.getDay()) % 7);
+  console.log(lastCornerDay);
+
+  const days = [];
+  const currDay = new Date(firstCornerDay.getTime());
+  while (currDay.getTime() <= lastCornerDay.getTime()) {
+    days.push(new Date(currDay.getTime()));
+    currDay.setDate(currDay.getDate() + 1);
+  }
+
+  console.log(days);
+
+  const daysOfWeek = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div style={{ marginLeft: "200px" }}>
+      <button onClick={() => setMonth((month) => month + 1)}>inc</button>
+      <div className="wrapper">
+        {daysOfWeek.map((day) => (
+          <DayOfWeek key={day} day={day} />
+        ))}
+        {days.map((day) => (
+          <Day key={day.getTime()} date={day} />
+        ))}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </div>
+  );
 }
 
-export default App
+export default App;
