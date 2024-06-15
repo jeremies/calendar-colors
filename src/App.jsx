@@ -1,6 +1,4 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
 import { DayOfWeek } from "./DayOfWeek";
 import { Day } from "./Day";
@@ -8,8 +6,6 @@ import { Day } from "./Day";
 function App() {
   const [month, setMonth] = useState(5);
   const [year, setYear] = useState(2015);
-
-  debugger;
 
   const firstDay = new Date(year, month, 1);
   let firstCornerDayOfWeek = -firstDay.getDay() + 2;
@@ -19,11 +15,9 @@ function App() {
     firstCornerDayOfWeek -= 7;
   }
   const firstCornerDay = new Date(year, month, firstCornerDayOfWeek);
-  console.log(firstCornerDay);
 
   const lastDay = new Date(year, month + 1, 0);
   const lastCornerDay = new Date(year, month + 1, (7 - lastDay.getDay()) % 7);
-  console.log(lastCornerDay);
 
   const days = [];
   const currDay = new Date(firstCornerDay.getTime());
@@ -32,13 +26,16 @@ function App() {
     currDay.setDate(currDay.getDate() + 1);
   }
 
-  console.log(days);
-
   const daysOfWeek = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
   return (
-    <div style={{ marginLeft: "200px" }}>
-      <button onClick={() => setMonth((month) => month + 1)}>inc</button>
+    <div className="calendar">
+      <button className="arrow-buttons" onClick={() => setMonth((month) => month - 1)}>
+        <i className="bx bxs-chevron-left"></i>
+      </button>
+      <button className="arrow-buttons" onClick={() => setMonth((month) => month + 1)}>
+        <i className="bx bxs-chevron-right"></i>
+      </button>
       <div className="wrapper">
         {daysOfWeek.map((day) => (
           <DayOfWeek key={day} day={day} />

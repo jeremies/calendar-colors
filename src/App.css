@@ -1,7 +1,18 @@
+.calendar {
+  height: 100vh;
+}
+
 .wrapper {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-  grid-gap: 10px;
+  grid-gap: 5px;
   background-color: #fff;
   color: #444;
+  width: 100vw;
+}
+
+.arrow-buttons {
+  border: 1px solid black;
+  font-size: 20px;
+  margin: 10px;
 }
