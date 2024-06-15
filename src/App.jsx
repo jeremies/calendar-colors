@@ -3,9 +3,16 @@ import "./App.css";
 import { DayOfWeek } from "./DayOfWeek";
 import { Day } from "./Day";
 
+const today = new Date();
+
+  const daysOfWeek = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+  const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+
 function App() {
   const [month, setMonth] = useState(5);
-  const [year, setYear] = useState(2015);
+  const monthNorm = (month % 12 + 12) % 12;
+  const year = today.getFullYear();
+  const currYear = year + Math.floor(month / 12);
 
   const firstDay = new Date(year, month, 1);
   let firstCornerDayOfWeek = -firstDay.getDay() + 2;
@@ -26,16 +33,17 @@ function App() {
     currDay.setDate(currDay.getDate() + 1);
   }
 
-  const daysOfWeek = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-
   return (
     <div className="calendar">
-      <button className="arrow-buttons" onClick={() => setMonth((month) => month - 1)}>
-        <i className="bx bxs-chevron-left"></i>
-      </button>
-      <button className="arrow-buttons" onClick={() => setMonth((month) => month + 1)}>
-        <i className="bx bxs-chevron-right"></i>
-      </button>
+      <div className="header">
+        <button className="arrow-buttons" onClick={() => setMonth((month) => month - 1)}>
+          <i className="bx bxs-chevron-left"></i>
+        </button>
+        <button className="arrow-buttons" onClick={() => setMonth((month) => month + 1)}>
+          <i className="bx bxs-chevron-right"></i>
+        </button>
+        <div className="month">{monthNames[monthNorm]} {currYear}</div>
+      </div>
       <div className="wrapper">
         {daysOfWeek.map((day) => (
           <DayOfWeek key={day} day={day} />

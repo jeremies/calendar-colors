@@ -1,5 +1,6 @@
 .calendar {
   height: 100vh;
+  font-size: 20px;
 }
 
 .wrapper {
@@ -15,4 +16,10 @@
   border: 1px solid black;
   font-size: 20px;
   margin: 10px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  font-size: 30px;
 }
