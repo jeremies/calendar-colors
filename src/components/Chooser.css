@@ -1,0 +1,15 @@
+.chooser {
+  position: absolute;
+  border: 1px solid #ccc;
+  padding: 10px;
+  background-color: #fff;
+}
+
+.color {
+  margin: 4px;
+  display: inline-block;
+  border-radius: 3px;
+  width: 26px;
+  height: 26px;
+  cursor: pointer;
+}
