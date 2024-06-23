@@ -4,6 +4,8 @@ import { DayOfWeek } from "./DayOfWeek";
 import { Day } from "./Day";
 import { Chooser } from "./Chooser";
 import PWABadge from "./PWABadge.jsx";
+import { SyncDB } from "./SyncDB.jsx";
+import { COLORS_BY_DATE } from "../constants/constants.js";
 
 const today = new Date();
 
@@ -34,14 +36,14 @@ function App() {
   const [colorsByDate, setColorsByDate] = useState({});
 
   useEffect(() => {
-    if (localStorage.getItem("colorsByDate")) {
-      setColorsByDate(JSON.parse(localStorage.getItem("colorsByDate")));
+    if (localStorage.getItem(COLORS_BY_DATE)) {
+      setColorsByDate(JSON.parse(localStorage.getItem(COLORS_BY_DATE)));
     }
   }, []);
 
   useEffect(() => {
     if (Object.keys(colorsByDate).length !== 0) {
-      localStorage.setItem("colorsByDate", JSON.stringify(colorsByDate));
+      localStorage.setItem(COLORS_BY_DATE, JSON.stringify(colorsByDate));
     }
   }, [colorsByDate]);
 
@@ -142,6 +144,7 @@ function App() {
       {isChooserShowing && (
         <Chooser addColor={addColor} position={chooserPosition} />
       )}
+      <SyncDB />
       <PWABadge />
     </div>
   );

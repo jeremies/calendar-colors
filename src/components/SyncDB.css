@@ -1,0 +1,10 @@
+.sync-db {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin-top: 10px;
+}
+
+.sync-db button {
+  border: 1px solid black;
+}
