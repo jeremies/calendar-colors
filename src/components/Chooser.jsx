@@ -1,9 +1,9 @@
 import { colorScheme } from "../constants/colorScheme";
 import "./Chooser.css";
 
-export const Chooser = ({ position, changeColor, ref }) => {
+export const Chooser = ({ position, addColor, ref }) => {
   const colorClick = (colIndex) => {
-    changeColor(colIndex);
+    addColor(colIndex);
   };
 
   const colorBlock = (colIndex) => {

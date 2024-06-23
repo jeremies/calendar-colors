@@ -29,6 +29,9 @@ function App() {
     x: 0,
     y: 0,
   });
+  const [currDate, setCurrDate] = useState(null);
+  const [colorsByDate, setColorsByDate] = useState({});
+
   const monthNorm = ((month % 12) + 12) % 12;
   const year = today.getFullYear();
   const currYear = year + Math.floor(month / 12);
@@ -52,7 +55,7 @@ function App() {
     currDay.setDate(currDay.getDate() + 1);
   }
 
-  const handleDayClick = (event, index, rowIndex) => {
+  const handleDayClick = (event, date) => {
     const day = event.target;
 
     const targetRect = day.getBoundingClientRect();
@@ -70,6 +73,25 @@ function App() {
       y,
     });
     setIsChooserShowing(true);
+    setCurrDate(date);
+  };
+
+  const addColor = (color) => {
+    if (!colorsByDate[currDate.getTime()]) {
+      setColorsByDate((colorsByDate) => ({
+        ...colorsByDate,
+        [currDate.getTime()]: [color],
+      }));
+    } else {
+      setColorsByDate((colorsByDate) => ({
+        ...colorsByDate,
+        [currDate.getTime()]: [...colorsByDate[currDate.getTime()], color],
+      }));
+    }
+
+    console.log(colorsByDate);
+
+    setIsChooserShowing(false);
   };
 
   return (
@@ -96,10 +118,17 @@ function App() {
           <DayOfWeek key={day} day={day} />
         ))}
         {days.map((day) => (
-          <Day key={day.getTime()} date={day} handleDayClick={handleDayClick} />
+          <Day
+            key={day.getTime()}
+            date={day}
+            colors={colorsByDate[day.getTime()]}
+            handleDayClick={handleDayClick}
+          />
         ))}
       </div>
-      {isChooserShowing && <Chooser position={chooserPosition} />}
+      {isChooserShowing && (
+        <Chooser addColor={addColor} position={chooserPosition} />
+      )}
     </div>
   );
 }
