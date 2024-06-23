@@ -3,6 +3,7 @@ import "./App.css";
 import { DayOfWeek } from "./DayOfWeek";
 import { Day } from "./Day";
 import { Chooser } from "./Chooser";
+import PWABadge from "./PWABadge.jsx";
 
 const today = new Date();
 
@@ -141,6 +142,7 @@ function App() {
       {isChooserShowing && (
         <Chooser addColor={addColor} position={chooserPosition} />
       )}
+      <PWABadge />
     </div>
   );
 }
