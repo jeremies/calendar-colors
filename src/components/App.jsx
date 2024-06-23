@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import { DayOfWeek } from "./DayOfWeek";
 import { Day } from "./Day";
@@ -31,6 +31,18 @@ function App() {
   });
   const [currDate, setCurrDate] = useState(null);
   const [colorsByDate, setColorsByDate] = useState({});
+
+  useEffect(() => {
+    if (localStorage.getItem("colorsByDate")) {
+      setColorsByDate(JSON.parse(localStorage.getItem("colorsByDate")));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (Object.keys(colorsByDate).length !== 0) {
+      localStorage.setItem("colorsByDate", JSON.stringify(colorsByDate));
+    }
+  }, [colorsByDate]);
 
   const monthNorm = ((month % 12) + 12) % 12;
   const year = today.getFullYear();
