@@ -1,7 +1,10 @@
 import { colorScheme } from "../constants/colorScheme";
+import { useOutsideClick } from "../hooks/useOutsideClick";
 import "./Chooser.css";
 
-export const Chooser = ({ position, addColor, ref }) => {
+export const Chooser = ({ position, addColor, onOutsideClick }) => {
+  const ref = useOutsideClick(onOutsideClick);
+
   const colorClick = (colIndex) => {
     addColor(colIndex);
   };

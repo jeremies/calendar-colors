@@ -71,6 +71,12 @@ function App() {
   }
 
   const handleDayClick = (event, date) => {
+    if (isChooserShowing) {
+      return;
+    }
+
+    event.stopPropagation();
+
     const day = event.target;
 
     const targetRect = day.getBoundingClientRect();
@@ -109,6 +115,10 @@ function App() {
     setIsChooserShowing(false);
   };
 
+  const onOutsideClick = () => {
+    setIsChooserShowing(false);
+  };
+
   return (
     <div className="calendar">
       <div className="header">
@@ -142,7 +152,11 @@ function App() {
         ))}
       </div>
       {isChooserShowing && (
-        <Chooser addColor={addColor} position={chooserPosition} />
+        <Chooser
+          addColor={addColor}
+          position={chooserPosition}
+          onOutsideClick={onOutsideClick}
+        />
       )}
       <SyncDB />
       <PWABadge />
