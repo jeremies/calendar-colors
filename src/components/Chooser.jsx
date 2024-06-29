@@ -2,7 +2,12 @@ import { colorScheme } from "../constants/colorScheme";
 import { useOutsideClick } from "../hooks/useOutsideClick";
 import "./Chooser.css";
 
-export const Chooser = ({ position, addColor, onOutsideClick }) => {
+export const Chooser = ({
+  position,
+  addColor,
+  onOutsideClick,
+  deleteDayColors,
+}) => {
   const ref = useOutsideClick(onOutsideClick);
 
   const colorClick = (colIndex) => {
@@ -12,7 +17,7 @@ export const Chooser = ({ position, addColor, onOutsideClick }) => {
   const colorBlock = (colIndex) => {
     return (
       <div
-        className="color"
+        className="chooser-item"
         onClick={() => colorClick(colIndex)}
         style={{ backgroundColor: colorScheme[colIndex] }}
       ></div>
@@ -35,6 +40,9 @@ export const Chooser = ({ position, addColor, onOutsideClick }) => {
           {colorBlock(3)}
           {colorBlock(4)}
           {colorBlock(5)}
+        </div>
+        <div>
+          <i className="chooser-item bx bx-trash" onClick={deleteDayColors}></i>
         </div>
       </div>
     </div>

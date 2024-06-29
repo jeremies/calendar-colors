@@ -5,7 +5,8 @@
   background-color: #fff;
 }
 
-.color {
+.chooser-item {
+  text-align: center;
   margin: 4px;
   display: inline-block;
   border-radius: 3px;

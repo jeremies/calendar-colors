@@ -110,12 +110,19 @@ function App() {
       }));
     }
 
-    console.log(colorsByDate);
-
     setIsChooserShowing(false);
   };
 
   const onOutsideClick = () => {
+    setIsChooserShowing(false);
+  };
+
+  const deleteDayColors = () => {
+    setColorsByDate((colorsByDate) => ({
+      ...colorsByDate,
+      [currDate.getTime()]: [],
+    }));
+
     setIsChooserShowing(false);
   };
 
@@ -156,6 +163,7 @@ function App() {
           addColor={addColor}
           position={chooserPosition}
           onOutsideClick={onOutsideClick}
+          deleteDayColors={deleteDayColors}
         />
       )}
       <SyncDB />
