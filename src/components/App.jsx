@@ -26,7 +26,7 @@ const monthNames = [
 ];
 
 function App() {
-  const [month, setMonth] = useState(5);
+  const [month, setMonth] = useState(() => today.getMonth());
   const [isChooserShowing, setIsChooserShowing] = useState(false);
   const [chooserPosition, setChooserPosition] = useState({
     x: 0,
