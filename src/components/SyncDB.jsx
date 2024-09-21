@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./SyncDB.css";
 import { COLORS_BY_DATE, TOKEN } from "../constants/constants";
 
@@ -20,13 +20,13 @@ export const SyncDB = () => {
   };
 
   const pullFromDB = async () => {
-    if (!confirm("do you really want to pull from DB?")) return;
+    if (token && !confirm("do you really want to pull from DB?")) return;
 
     const req = await fetch(`https://api.github.com/gists/${GIST_ID}`);
     const gist = await req.json();
     localStorage.setItem(COLORS_BY_DATE, gist.files[GIST_FILENAME].content);
     window.location.reload();
-    alert("local DB updated successfully");
+    if (token) alert("local DB updated successfully");
   };
 
   const pushToDB = async (data) => {
@@ -48,6 +48,23 @@ export const SyncDB = () => {
 
     alert("DB updated successfully");
   };
+
+  useEffect(() => {
+    const executeOncePerDay = () => {
+      const lastExecution = localStorage.getItem("lastExecution");
+
+      const now = new Date().getTime();
+      const oneDay = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+
+      if (!lastExecution || now - lastExecution > oneDay) {
+        !token && pullFromDB();
+
+        localStorage.setItem("lastExecution", now);
+      }
+    };
+
+    executeOncePerDay();
+  }, []);
 
   return (
     <div>
